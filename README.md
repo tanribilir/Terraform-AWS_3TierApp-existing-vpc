@@ -2,7 +2,7 @@
 
 Forked from https://github.com/tellisnz/terraform-aws.git
 
-Modified terraform.tfvars file
+Modified terraform/terraform.tfvars file
 
 A template and configuration that reuses modules from the terraform registry to
 create a three tier VPC and deploy a sample app to it, where:
