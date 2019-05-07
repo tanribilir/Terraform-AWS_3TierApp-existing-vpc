@@ -4,27 +4,19 @@ provider "aws" {
 
 data "aws_ami" "amazon_linux" {
   most_recent = true
+  owners = ["679593333241"]
 
   filter {
     name = "name"
-
     values = [
-      "amzn-ami-hvm-*-x86_64-gp2",
-    ]
-  }
-
-  filter {
-    name = "owner-alias"
-
-    values = [
-      "amazon",
+      "Amazon Linux 2*",
     ]
   }
 }
 
 variable "region" {
   description = "The AWS region to deploy to"
-  default = "ap-southeast-1"
+  default = ""
 }
 
 variable "name" {

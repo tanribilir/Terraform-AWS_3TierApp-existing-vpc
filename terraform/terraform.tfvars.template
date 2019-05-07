@@ -22,7 +22,7 @@ db_password = "tawsdbpassword"
 #db_backup_retention_period = 
 #db_maintenance_window = 
 
-#app_port = 
+app_port =
 #app_instance_type = 
 #app_autoscale_min_size = 
 #app_autoscale_max_size = 
