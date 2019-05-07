@@ -81,7 +81,7 @@ resource "aws_autoscaling_group" "app" {
 variable "app_port" {
   type = "string"
   description = "The port on which the application listens for connections"
-  default = 8080
+  default = "8080"
 }
 
 variable "app_instance_type" {
