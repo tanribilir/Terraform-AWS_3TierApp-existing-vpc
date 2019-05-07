@@ -38,7 +38,7 @@ resource "aws_launch_configuration" "app" {
   instance_type   = "${var.app_instance_type}"
   security_groups = ["${aws_security_group.app.id}"]
   #TODO REMOVE
-  key_name = "web-key"
+  key_name = "KeyPair_terraform"
   name_prefix = "${var.name}-app-vm-"
 
   user_data = <<-EOF
@@ -48,7 +48,7 @@ resource "aws_launch_configuration" "app" {
               wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
               sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
               yum install -y apache-maven
-              git clone https://github.com/tellisnz/terraform-aws.git
+              git clone https://github.com/tanribilir/Terraform-AWS_3TierApp.git
               cd terraform-aws/sample-web-app/server
               nohup mvn spring-boot:run -Dspring.datasource.url=jdbc:postgresql://"${module.rds.this_db_instance_address}:${var.db_port}/${var.db_name}" -Dspring.datasource.username="${var.db_username}" -Dspring.datasource.password="${var.db_password}" -Dserver.port="${var.app_port}" &> mvn.out &
               EOF

@@ -81,7 +81,7 @@ variable "db_port" {
 
 variable "db_maintenance_window" {
   description = "The window to perform maintenance in"
-  default = "Mon:00:00-Mon:03:00"
+  default = "Mon:00:00-Sun:03:00"
 }
 
 variable "db_backup_window" {
