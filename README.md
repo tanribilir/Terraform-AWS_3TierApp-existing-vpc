@@ -18,7 +18,7 @@ Sample app from (here)[http://javasampleapproach.com/spring-framework/spring-mvc
 
 # Usage
 
-Retrieve public key of your keypair with command [MacOS/Linux]: ssh-keygen -y -f /path_to_key_pair/my-key-pair.pem
+Retrieve public key of your keypair with command [MacOS/Linux]: `ssh-keygen -y -f /path_to_key_pair/my-key-pair.pem`
 
 Take a copy of terraform.tfvars.template and substitute required values.
 
