@@ -1,7 +1,7 @@
 resource "aws_security_group" "elb_web" {
   name = "${format("%s-elb-web-sg", var.name)}"
 
-  vpc_id = "${module.vpc.vpc_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.web_port}"
@@ -27,7 +27,7 @@ module "elb_web" {
 
   name = "${format("%s-elb-web", var.name)}"
 
-  subnets         = ["${module.vpc.public_subnets}"]
+  subnets         = ["${var.vpc_public_subnetids}"]
   security_groups = ["${aws_security_group.elb_web.id}"]
   internal        = false
 
@@ -76,6 +76,13 @@ variable "web_elb_health_check_timeout" {
   default = 5
 }
 
+variable "vpc_public_subnetids" {
+  description = "self explanatory"
+  default = []
+}
+
+
 output "elb_dns_name" {
   value = "${module.elb_web.this_elb_dns_name}"
 }
+

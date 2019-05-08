@@ -1,3 +1,5 @@
+# This file is for creating a new vpc
+# If this file to be used, modify variables in other *.tf files
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 

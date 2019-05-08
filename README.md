@@ -4,8 +4,7 @@ Forked from https://github.com/tellisnz/terraform-aws.git
 
 Modified terraform/terraform.tfvars file
 
-A template and configuration that reuses modules from the terraform registry to
-create a three tier VPC and deploy a sample app to it, where:
+A template and configuration that reuses modules from the terraform registry to deploy a sample app to an existing VPC, where:
 
 The public presentation tier is an nginx host serving AngularJS static content
 that passes API requests through to the private application tier.
@@ -19,9 +18,13 @@ Sample app from (here)[http://javasampleapproach.com/spring-framework/spring-mvc
 
 # Usage
 
+Retrieve public key of your keypair with command [MacOS/Linux]: ssh-keygen -y -f /path_to_key_pair/my-key-pair.pem
+
 Take a copy of terraform.tfvars.template and substitute required values.
 
-Apply as per normal, i.e. `terraform apply -var-file=terraform.tfvars`
+Create plan, i.e. `terraform plan -out out-into_existing_vpc.tfplan`
+
+Apply as per normal, i.e. `terraform apply "out-into_existing_vpc.tfplan"`
 
 # Testing
 

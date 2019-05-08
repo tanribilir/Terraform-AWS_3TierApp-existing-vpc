@@ -1,13 +1,13 @@
 resource "aws_security_group" "rds" {
   name = "${format("%s-rds-sg", var.name)}"
 
-  vpc_id = "${module.vpc.vpc_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.db_port}"
     to_port     = "${var.db_port}"
     protocol    = "tcp"
-    cidr_blocks = ["${module.vpc.private_subnets_cidr_blocks}"]
+    cidr_blocks = ["${var.vpc_private_subnets}"]
   }
 
   tags {
@@ -39,7 +39,7 @@ module "rds" {
   # disable backups to create DB faster
   backup_retention_period = "${var.db_backup_retention_period}"
 
-  subnet_ids = ["${module.vpc.database_subnets}"]
+  subnet_ids = ["${var.vpc_database_subnetids}"]
 
   family = "postgres9.6"
 
@@ -81,7 +81,7 @@ variable "db_port" {
 
 variable "db_maintenance_window" {
   description = "The window to perform maintenance in"
-  default = "Mon:00:00-Sun:03:00"
+  default = "Sun:00:00-Sun:03:00"
 }
 
 variable "db_backup_window" {
@@ -92,4 +92,21 @@ variable "db_backup_window" {
 variable "db_backup_retention_period" {
   description = "The days to retain backups for"
   default = 0
+}
+
+variable "vpc_database_subnets" {
+  description = "subnet to provision db instance in"
+  type = "list"
+  default = [""]
+}
+
+variable "vpc_database_subnetids" {
+  description = "VPC subnet IDs to host DB instance"
+  type = "list"
+  default = [""]
+}
+
+variable "vpc_azs" {
+  description = "A list of availability zones in the region"
+  default     = []
 }

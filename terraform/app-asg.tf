@@ -1,20 +1,20 @@
 resource "aws_security_group" "app" {
   name = "${format("%s-app-sg", var.name)}"
 
-  vpc_id = "${module.vpc.vpc_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.app_port}"
     to_port     = "${var.app_port}"
     protocol    = "tcp"
-    cidr_blocks = ["${module.vpc.public_subnets_cidr_blocks}", "${module.vpc.private_subnets_cidr_blocks}"]
+    cidr_blocks = ["${var.vpc_public_subnets}", "${var.vpc_private_subnets}"]
   }
 
   ingress {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["${module.vpc.public_subnets_cidr_blocks}"]
+    cidr_blocks = ["${var.vpc_public_subnets}"]
   }
 
   egress {
@@ -62,7 +62,7 @@ resource "aws_launch_configuration" "app" {
 resource "aws_autoscaling_group" "app" {
   launch_configuration = "${aws_launch_configuration.app.id}"
 
-  vpc_zone_identifier = ["${module.vpc.private_subnets}"]
+  vpc_zone_identifier = ["${var.vpc_private_subnetids_app}"]
 
   load_balancers    = ["${module.elb_app.this_elb_name}"]
   health_check_type = "EC2"
@@ -98,3 +98,9 @@ variable "app_autoscale_max_size" {
   description = "The largest amount of EC2 instances to start"
   default = 3
 }
+
+variable "vpc_private_subnetids_app" {
+  description = "Subnets to host the app"
+  default = []
+}
+

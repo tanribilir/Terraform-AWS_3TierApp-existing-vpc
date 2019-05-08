@@ -1,7 +1,7 @@
 resource "aws_security_group" "elb_app" {
   name = "${format("%s-elb-app-sg", var.name)}"
 
-  vpc_id = "${module.vpc.vpc_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.app_port}"
@@ -28,7 +28,7 @@ module "elb_app" {
 
   name = "${format("%s-elb-app", var.name)}"
 
-  subnets         = ["${module.vpc.private_subnets}"]
+  subnets         = ["${var.vpc_private_subnetids}"]
   security_groups = ["${aws_security_group.elb_app.id}"]
   internal        = true
 
@@ -57,6 +57,14 @@ module "elb_app" {
 
 }
 
+variable "vpc_public_subnets" {
+  default = ["10.33.33.160/28"]
+}
+
+variable "vpc_private_subnets" {
+  default = ["10.33.33.128/28"]
+}
+
 variable "app_elb_health_check_interval" {
   description = "Duration between health checks"
   default = 20
@@ -77,3 +85,7 @@ variable "app_elb_health_check_timeout" {
   default = 5
 }
 
+variable "vpc_private_subnetids" {
+  description = "self explanatory"
+  default = []
+}

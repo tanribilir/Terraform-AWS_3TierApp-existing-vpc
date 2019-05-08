@@ -4,12 +4,12 @@ provider "aws" {
 
 data "aws_ami" "amazon_linux" {
   most_recent = true
-  owners = ["679593333241"]
+  owners = ["137112412989"]
 
   filter {
     name = "name"
     values = [
-      "Amazon Linux 2*",
+      "amzn2-ami-hvm-2*"
     ]
   }
 }
@@ -25,5 +25,9 @@ variable "name" {
 }
 
 variable "public_key" {
+  default = ""
+}
+
+variable "vpc_id" {
   default = ""
 }

@@ -1,7 +1,7 @@
 resource "aws_security_group" "web" {
   name = "${format("%s-web-sg", var.name)}"
 
-  vpc_id = "${module.vpc.vpc_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress {
     from_port   = "${var.web_port}"
@@ -35,8 +35,8 @@ resource "aws_security_group" "web" {
 }
 
 #TODO REMOVE
-resource "aws_key_pair" "web-key" {
-  key_name = "web-key"
+resource "aws_key_pair" "KeyPair_terraform" {
+  key_name = "KeyPair_terraform"
   public_key = "${var.public_key}"
 
 }
@@ -46,7 +46,7 @@ resource "aws_launch_configuration" "web" {
   instance_type   = "${var.web_instance_type}"
   security_groups = ["${aws_security_group.web.id}"]
   #TODO REMOVE
-  key_name = "web-key"
+  key_name = "KeyPair_terraform"
   name_prefix = "${var.name}-web-vm-"
 
   user_data = <<-EOF
@@ -86,7 +86,7 @@ resource "aws_launch_configuration" "web" {
 resource "aws_autoscaling_group" "web" {
   launch_configuration = "${aws_launch_configuration.web.id}"
 
-  vpc_zone_identifier = ["${module.vpc.public_subnets}"]
+  vpc_zone_identifier = ["${var.vpc_public_subnetids_web}"]
 
   load_balancers    = ["${module.elb_web.this_elb_name}"]
   health_check_type = "EC2"
@@ -122,3 +122,7 @@ variable "web_autoscale_max_size" {
   default = 3
 }
 
+variable "vpc_public_subnetids_web" {
+  description = "Subnets to host the app"
+  default = []
+}
