@@ -20,7 +20,7 @@ Sample app from (here)[http://javasampleapproach.com/spring-framework/spring-mvc
 
 Retrieve public key of your keypair with command [MacOS/Linux]: `ssh-keygen -y -f /path_to_key_pair/my-key-pair.pem`
 
-Do not forget to change `KeyPair_terraform` parameter in `app-asg.tf` and `web-asg.tf` files.
+Do not forget to change `**KeyPair_terraform**` parameter in `app-asg.tf` and `web-asg.tf` files.
 
 Take a copy of terraform.tfvars.template and substitute required values.
 
