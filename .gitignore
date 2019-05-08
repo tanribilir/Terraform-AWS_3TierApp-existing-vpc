@@ -57,6 +57,8 @@ buildNumber.properties
 # .tfvars files
 *.tfvars
 
+# .tfplan files
+*.tfplan
 
 ### Go ###
 # Binaries for programs and plugins

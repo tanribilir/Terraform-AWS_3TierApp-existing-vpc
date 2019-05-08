@@ -1,4 +1,4 @@
-# Terraform and AWS
+# Terraform and AWS (into existing VPC)
 
 Forked from https://github.com/tellisnz/terraform-aws.git
 
